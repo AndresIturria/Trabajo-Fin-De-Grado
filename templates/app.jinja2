@@ -1,0 +1,459 @@
+{% extends 'base.jinja2' %}
+
+{% block head %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet"href="{{ url_for('static', filename='css/app.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; margin-top: 20px;">Picking Regular Players</h1>
+<h2 id="top_pos" style="text-align: center; margin: 20px;">Placeholder</h2>
+<div class="container">
+
+  <div class="catcher">
+
+    <h3 id="c-title">C</h3>
+
+      <div class="tableContainer">
+          <table id="table-c">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+
+            {% for player in catcher %}
+                <tr class="{{ player.playerID }}">
+                <td>{{ player.playerID }}</td>
+                <td><a target="_blank" href="/player/{{ player.playerID }}">{{ player.firstName }} {{ player.lastName }}</a></td>
+                <td>{{ player.teamID }}</td>
+                <td>{{ player.points }}</td>
+                <td><button type="button" class="pos-c" onclick="pick('{{ player.playerID }}', this, 'pos-c')">Pick</button></td>
+                <td><button type="button" onclick="remove_player('{{ player.playerID }}', this)">Remove</button></td>
+                </tr>
+            {% endfor %}
+
+          </table>
+
+      </div>
+
+    </div>
+
+  <div class="first">
+    <h3 id="1b-title">1B</h3>
+      <div class="tableContainer">
+          <table id="table-1b">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+
+            {% for player in first %}
+                <tr class="{{ player.playerID }}">
+                <td>{{ player.playerID }}</td>
+                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td>{{ player.teamID }}</td>
+                <td>{{ player.points }}</td>
+                <td><button type="button" class="pos-1b" onclick="pick('{{ player.playerID }}', this, 'pos-1b')">Pick</button></td>
+                <td><button type="button" onclick="remove_player('{{ player.playerID }}', this)">Remove</button></td>
+                </tr>
+            {% endfor %}
+
+          </table>
+
+      </div>
+
+    </div>
+
+
+  <div class="second">
+    <h3 id="2b-title">2B</h3>
+      <div class="tableContainer">
+          <table id="table-2b">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+
+            {% for player in second %}
+                <tr class="{{ player.playerID }}">
+                <td>{{ player.playerID }}</td>
+                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td>{{ player.teamID }}</td>
+                <td>{{ player.points }}</td>
+                <td><button type="button" class="pos-2b" onclick="pick('{{ player.playerID }}', this, 'pos-2b')">Pick</button></td>
+                <td><button type="button" onclick="remove_player('{{ player.playerID }}', this)">Remove</button></td>
+                </tr>
+            {% endfor %}
+
+          </table>
+
+      </div>
+
+    </div>
+
+
+  <div class="third">
+    <h3 id="3b-title">3B</h3>
+      <div class="tableContainer">
+          <table id="table-3b">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+
+            {% for player in third %}
+                <tr class="{{ player.playerID }}">
+                <td>{{ player.playerID }}</td>
+                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td>{{ player.teamID }}</td>
+                <td>{{ player.points }}</td>
+                <td><button type="button" class="pos-3b" onclick="pick('{{ player.playerID }}', this, 'pos-3b')">Pick</button></td>
+                <td><button type="button" onclick="remove_player('{{ player.playerID }}', this)">Remove</button></td>
+                </tr>
+            {% endfor %}
+
+          </table>
+
+      </div>
+
+    </div>
+
+
+  <div class="ss">
+    <h3 id="ss-title">SS</h3>
+      <div class="tableContainer">
+          <table id="table-ss">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+
+            {% for player in ss %}
+                <tr class="{{ player.playerID }}">
+                <td>{{ player.playerID }}</td>
+                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td>{{ player.teamID }}</td>
+                <td>{{ player.points }}</td>
+                <td><button type="button" class="pos-ss" onclick="pick('{{ player.playerID }}', this, 'pos-ss')">Pick</button></td>
+                <td><button type="button" onclick="remove_player('{{ player.playerID }}', this)">Remove</button></td>
+                </tr>
+            {% endfor %}
+
+          </table>
+
+      </div>
+
+    </div>
+
+
+  <div class="of">
+    <h3 id="of-title">OF</h3>
+      <div class="tableContainer">
+          <table id="table-of">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+
+            {% for player in of %}
+                <tr class="{{ player.playerID }}">
+                <td>{{ player.playerID }}</td>
+                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td>{{ player.teamID }}</td>
+                <td>{{ player.points }}</td>
+                <td><button type="button" class="pos-of" onclick="pick('{{ player.playerID }}', this, 'pos-of')">Pick</button></td>
+                <td><button type="button" onclick="remove_player('{{ player.playerID }}', this)">Remove</button></td>
+                </tr>
+            {% endfor %}
+
+          </table>
+
+      </div>
+
+    </div>
+
+
+
+  <div class="pitcher">
+    <h3 id="p-title">Pitchers</h3>
+      <div class="tableContainer">
+          <table id="table-p">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+
+            {% for player in pitcher %}
+                <tr class="{{ player.playerID }}">
+                <td>{{ player.playerID }}</td>
+                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td>{{ player.teamID }}</td>
+                <td>{{ player.points }}</td>
+                <td><button type="button" class="pos-p" onclick="pick('{{ player.playerID }}', this, 'pos-p')">Pick</button></td>
+                <td><button type="button" onclick="remove_player('{{ player.playerID }}', this)">Remove</button></td>
+                </tr>
+            {% endfor %}
+
+          </table>
+
+      </div>
+
+    </div>
+
+
+  <div class="team">
+    <h3>Your picks</h3>
+        <div class="tableContainer">
+      <table id="table-team">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Team</th>
+            <th>Points</th>
+        </tr>
+      </table>
+
+  </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+    <script type="text/javascript">
+        let players_picked = 0;
+        let of_picked = 0;
+        let of_removed = false;
+        let pitchers_picked = 0;
+        let pitchers_removed = false;
+        let c_removed = false;
+        let first_removed = false;
+        let second_removed = false;
+        let third_removed = false;
+        let ss_removed = false;
+
+
+        calculate_sd();
+
+
+
+        function pick(playerID, el, pos) {
+
+            // sumar a contadores
+            players_picked = players_picked + 1;
+
+            if (pos == 'pos-of'){
+                of_picked = of_picked + 1;
+
+            }
+            if (pos == 'pos-p'){
+                pitchers_picked = pitchers_picked + 1;
+
+            }
+            // esconder de listas y ponerlo en your picks
+            $('.'+playerID).remove();
+            row = $(el.closest('tr')).clone();
+            row.show();
+            row.children().eq(4).remove(); // quitar boton pick
+            row.children().eq(4).remove(); // quitar boton remove
+            $('.team table').append(row);
+
+
+            // si no es of ni pitcher se quita el boton de pick a la primera
+            if (pos!='pos-of' && pos!='pos-p'){
+                $('.'+pos).hide();
+
+            }
+            //quitar boton de pick de of cuando ya elegiste a 3
+            if (of_picked == 3 && of_removed == false){
+                $('.'+pos).hide();
+                of_removed = true;
+
+            }
+            //quitar boton de pick de pitchers cuando ya elegiste a 8
+            if (pitchers_picked == 8 && pitchers_removed == false){
+                $('.'+pos).hide();
+                pitchers_removed = true;
+
+            }
+            //cuando ya elegimos a los jugadores normales, elegimos a utilities
+            if (players_picked >= 16 && players_picked < 18){
+                $("h1").replaceWith('<h1 style="text-align: center; margin-top: 20px;">Picking Utilities</h1>')
+
+                pos_array = ['pos-c', 'pos-1b', 'pos-2b', 'pos-3b', 'pos-ss', 'pos-of'];
+                for (let element of pos_array) {
+
+                    $('.'+element).show();
+                }
+
+            }
+            if (players_picked >= 18 && players_picked < 22){
+                $("h1").replaceWith('<h1 style="text-align: center; margin-top: 20px;">Picking Bench</h1>')
+                pos_array = ['pos-c', 'pos-1b', 'pos-2b', 'pos-3b', 'pos-ss', 'pos-of', 'pos-p'];
+                for (let element of pos_array) {
+
+                    $('.'+element).show();
+                }
+
+            }
+
+            if (players_picked == 22){
+                $("h1").replaceWith('<h1 style="text-align: center; margin-top: 20px;">Draft Finished</h1>')
+
+                pos_array = ['pos-c', 'pos-1b', 'pos-2b', 'pos-3b', 'pos-ss', 'pos-of', 'pos-p'];
+                for (let element of pos_array) {
+
+                    $('.'+element).hide();
+                }
+
+            }
+            // Once player is removed from lists calculate sd again
+            calculate_sd();
+
+        }
+
+        function remove_player(playerID, el) {
+            $('.'+playerID).remove();
+            // Once player is removed from lists calculate sd again
+            calculate_sd();
+
+        }
+
+        function calculate_sd(){
+            let table_array = ['table-c', 'table-1b', 'table-2b', 'table-3b', 'table-ss', 'table-of', 'table-p'];
+            let sd_array = []
+            for (let element of table_array){
+                points_array = []
+                rows = $(`#${element} tbody tr`)
+                $.each(rows.slice(1,11), function (){
+
+                    point = $(this).children().eq(3).html()
+                    point_int = parseInt(point)
+                    points_array.push(point_int)
+
+
+
+                });
+                sd = getStandardDeviation(points_array).toFixed();
+                sd_array.push(parseInt(sd));
+                // Actualizar los sds:
+                if (element == 'table-c'){
+                    $('#c-title').replaceWith(`<h3 id="c-title">C SD=${sd}</h3>`)
+                }
+                else if (element == 'table-1b'){
+                    $('#1b-title').replaceWith(`<h3 id="1b-title">1B SD=${sd}</h3>`)
+                }
+                else if (element == 'table-2b'){
+                    $('#2b-title').replaceWith(`<h3 id="2b-title">2B SD=${sd}</h3>`)
+                }
+                else if (element == 'table-3b'){
+                    $('#3b-title').replaceWith(`<h3 id="3b-title">3B SD=${sd}</h3>`)
+                }
+                else if (element == 'table-ss'){
+                    $('#ss-title').replaceWith(`<h3 id="ss-title">SS SD=${sd}</h3>`)
+                }
+                else if (element == 'table-of'){
+                    $('#of-title').replaceWith(`<h3 id="of-title">OF SD=${sd}</h3>`)
+                }
+                else if (element == 'table-p'){
+                    $('#p-title').replaceWith(`<h3 id="p-title">P SD=${sd}</h3>`)
+                }
+
+            }
+                            //Actualizar la posicion recomendada:
+                            console.log("va a entrar")
+            while(true){
+                console.log("en el loop")
+                let max = Math.max(...sd_array);
+                let index = sd_array.indexOf(max);
+                console.log(sd_array)
+                console.log(max)
+                console.log(index)
+
+                if(players_picked == 16 || players_picked == 17){
+                    of_removed = false;
+                    c_removed = false;
+                    first_removed = false;
+                    second_removed = false;
+                    third_removed = false;
+                    ss_removed = false;
+
+                }
+                if(players_picked>17){
+                    of_removed = false;
+                    c_removed = false;
+                    first_removed = false;
+                    second_removed = false;
+                    third_removed = false;
+                    ss_removed = false;
+                    pitchers_removed = false;
+
+                }
+                if (index==0 && c_removed == false){
+                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: Catcher.</h2>`);
+                    c_removed = true;
+                    break;
+                }
+                else if (index==1 && first_removed == false){
+                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: 1B.</h2>`);
+                    first_removed = true;
+                    break;
+                }
+                else if (index==2 && second_removed == false){
+                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: 2B.</h2>`);
+                    second_removed = true;
+                    break;
+                }
+                else if (index==3 && third_removed == false){
+                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: 3B.</h2>`);
+                    third_removed = true;
+                    break;
+                }
+                else if (index==4 && ss_removed == false){
+                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: SS.</h2>`);
+                    ss_removed = true;
+                    break;
+
+                }
+                else if (index==5 && of_removed == false){
+                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: OF.</h2>`);
+                    break;
+                }
+                else if (index==6 && pitchers_removed == false){
+                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: Pitcher.</h2>`);
+                    break;
+                }
+
+                else{
+                    sd_array[index] = 0
+                }
+            }
+            console.log("salio")
+
+        }
+
+        function getStandardDeviation (array) {
+          const n = array.length
+          const mean = array.reduce((a, b) => a + b) / n
+          return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
+}
+
+    </script>
+
+{% endblock %}
+

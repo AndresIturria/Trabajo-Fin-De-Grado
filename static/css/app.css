@@ -1,0 +1,42 @@
+.container {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "catcher first second"
+    "third ss of"
+    "pitcher . team";
+}
+
+.catcher { grid-area: catcher; }
+
+.first { grid-area: first; }
+
+.second { grid-area: second; }
+
+.third { grid-area: third; }
+
+.ss { grid-area: ss; }
+
+.of { grid-area: of; }
+
+.pitcher { grid-area: pitcher; }
+
+.team { grid-area: team; }
+
+.tableContainer {
+    height: 200px;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+}
+.table {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    align-self: center;
+}
+h3{
+    text-align:center
+}

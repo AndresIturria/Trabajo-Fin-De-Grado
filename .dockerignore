@@ -1,0 +1,12 @@
+requirements.txt
+venv
+data/2021
+data/baseballdatabank
+data/charts
+data/intermediate-steps
+data/prediction-data
+data/scripts
+.git
+README.MD
+.idea
+__pycache__

@@ -17,3 +17,5 @@
 4. Los ficheros de datos ya vienen incluidos en el repositorio, pero también se encuentran los scripts para generarlos.
 Para generarlos ejecutar los scripts en la carpeta data/scripts/ en orden.
 5. Para iniciar la aplicación web ejecutar app.py, usará el puerto 5000.
+
+También se puede encontrar la aplicación en la dirección: http://34.148.143.188:5000/

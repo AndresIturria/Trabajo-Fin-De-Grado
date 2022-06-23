@@ -239,17 +239,18 @@
     <script type="text/javascript">
         let players_picked = 0;
         let of_picked = 0;
-        let of_removed = false;
         let pitchers_picked = 0;
-        let pitchers_removed = false;
         let c_removed = false;
         let first_removed = false;
         let second_removed = false;
         let third_removed = false;
         let ss_removed = false;
+        let of_removed = false;
+        let pitchers_removed = false;
 
 
-        calculate_sd();
+        let aux = calculate_sd();
+        update_recommended(aux);
 
 
 
@@ -266,7 +267,7 @@
                 pitchers_picked = pitchers_picked + 1;
 
             }
-            // esconder de listas y ponerlo en your picks
+            // quitar de listas y ponerlo en your picks
             $('.'+playerID).remove();
             row = $(el.closest('tr')).clone();
             row.show();
@@ -278,6 +279,21 @@
             // si no es of ni pitcher se quita el boton de pick a la primera
             if (pos!='pos-of' && pos!='pos-p'){
                 $('.'+pos).hide();
+                if (pos == "pos-c"){
+                    c_removed = true;
+                }
+                else if (pos == "pos-1b"){
+                    first_removed = true;
+                }
+                else if (pos == "pos-2b"){
+                    second_removed = true;
+                }
+                else if (pos == "pos-3b"){
+                    third_removed = true;
+                }
+                else if (pos == "pos-ss"){
+                    ss_removed = true;
+                }
 
             }
             //quitar boton de pick de of cuando ya elegiste a 3
@@ -292,7 +308,7 @@
                 pitchers_removed = true;
 
             }
-            //cuando ya elegimos a los jugadores normales, elegimos a utilities
+            //cuando ya elegimos a los jugadores normales, elegimos a utilities, se desbloquean los pick excepto pitcher
             if (players_picked >= 16 && players_picked < 18){
                 $("h1").replaceWith('<h1 style="text-align: center; margin-top: 20px;">Picking Utilities</h1>')
 
@@ -303,6 +319,7 @@
                 }
 
             }
+            // Ahora elegimos a la banca, se desbloquean todos los picks
             if (players_picked >= 18 && players_picked < 22){
                 $("h1").replaceWith('<h1 style="text-align: center; margin-top: 20px;">Picking Bench</h1>')
                 pos_array = ['pos-c', 'pos-1b', 'pos-2b', 'pos-3b', 'pos-ss', 'pos-of', 'pos-p'];
@@ -312,9 +329,10 @@
                 }
 
             }
-
+            // draft terminado, se quita la posicion recomendada.
             if (players_picked == 22){
-                $("h1").replaceWith('<h1 style="text-align: center; margin-top: 20px;">Draft Finished</h1>')
+                $("h1").replaceWith('<h1 style="text-align: center; margin-top: 20px;">Draft Finished</h1>');
+                $("h2").remove();
 
                 pos_array = ['pos-c', 'pos-1b', 'pos-2b', 'pos-3b', 'pos-ss', 'pos-of', 'pos-p'];
                 for (let element of pos_array) {
@@ -323,19 +341,22 @@
                 }
 
             }
-            // Once player is removed from lists calculate sd again
-            calculate_sd();
+            // Once player is removed from lists calculate sd and recommended player again
+            let sd_array = calculate_sd();
+            update_recommended(sd_array);
 
         }
 
         function remove_player(playerID, el) {
             $('.'+playerID).remove();
-            // Once player is removed from lists calculate sd again
-            calculate_sd();
+            // Once player is removed from lists calculate sd and recommended again
+            let sd_array = calculate_sd();
+            update_recommended(sd_array);
 
         }
 
         function calculate_sd(){
+            // por cada tabla calculo la desviacion de los 10 primeros y pongo las desviaciones en un array.
             let table_array = ['table-c', 'table-1b', 'table-2b', 'table-3b', 'table-ss', 'table-of', 'table-p'];
             let sd_array = []
             for (let element of table_array){
@@ -347,12 +368,11 @@
                     point_int = parseInt(point)
                     points_array.push(point_int)
 
-
-
                 });
                 sd = getStandardDeviation(points_array).toFixed();
                 sd_array.push(parseInt(sd));
-                // Actualizar los sds:
+
+                // Actualizar los SDs al lado de el nombre de la posicion:
                 if (element == 'table-c'){
                     $('#c-title').replaceWith(`<h3 id="c-title">C SD=${sd}</h3>`)
                 }
@@ -376,15 +396,17 @@
                 }
 
             }
-                            //Actualizar la posicion recomendada:
-                            console.log("va a entrar")
+            return(sd_array);
+        }
+
+        function update_recommended(sd_array){
+            //Actualizar la posicion recomendada:
+
             while(true){
-                console.log("en el loop")
                 let max = Math.max(...sd_array);
-                let index = sd_array.indexOf(max);
-                console.log(sd_array)
-                console.log(max)
-                console.log(index)
+                let max_index = sd_array.indexOf(max);
+
+
 
                 if(players_picked == 16 || players_picked == 17){
                     of_removed = false;
@@ -395,6 +417,7 @@
                     ss_removed = false;
 
                 }
+
                 if(players_picked>17){
                     of_removed = false;
                     c_removed = false;
@@ -405,48 +428,76 @@
                     pitchers_removed = false;
 
                 }
-                if (index==0 && c_removed == false){
-                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: Catcher.</h2>`);
-                    c_removed = true;
-                    break;
-                }
-                else if (index==1 && first_removed == false){
-                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: 1B.</h2>`);
-                    first_removed = true;
-                    break;
-                }
-                else if (index==2 && second_removed == false){
-                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: 2B.</h2>`);
-                    second_removed = true;
-                    break;
-                }
-                else if (index==3 && third_removed == false){
-                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: 3B.</h2>`);
-                    third_removed = true;
-                    break;
-                }
-                else if (index==4 && ss_removed == false){
-                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: SS.</h2>`);
-                    ss_removed = true;
-                    break;
+
+                if (max_index==0) {
+                    if(c_removed == false){
+                        $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: Catcher.</h2>`);
+                        break;
+                    }
+                    else{
+                        sd_array[0] = 0;
+                    }
 
                 }
-                else if (index==5 && of_removed == false){
-                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: OF.</h2>`);
-                    break;
+                else if (max_index==1) {
+                    if (first_removed == false){
+                        $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: 1B.</h2>`);
+                        break;
+                    }
+                    else{
+                        sd_array[1] = 0;
+                    }
                 }
-                else if (index==6 && pitchers_removed == false){
-                    $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: Pitcher.</h2>`);
-                    break;
+                else if (max_index==2) {
+                    if (second_removed == false){
+                        $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: 2B.</h2>`);
+                        break;
+                    }
+                    else{
+                        sd_array[2] = 0;
+                    }
+                }
+                else if (max_index==3) {
+                    if (third_removed == false){
+                        $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: 3B.</h2>`);
+                        break;
+                    }
+                    else{
+                        sd_array[3] = 0;
+                    }
+                }
+                else if (max_index==4) {
+                    if (ss_removed == false){
+                        $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: SS.</h2>`);
+                        break;
+                    }
+                    else{
+                        sd_array[4] = 0;
+                    }
+                }
+                else if (max_index==5) {
+                    if (of_removed == false){
+                        $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: OF.</h2>`);
+                        break;
+                    }
+                    else{
+                        sd_array[5] = 0
+                    }
+                }
+                else if (max_index==6) {
+                    if (pitchers_removed == false){
+                        $('#top_pos').replaceWith(`<h2 id="top_pos" style="text-align: center; margin: 20px;">Recommended Pick: P.</h2>`);
+                        break;
+                    }
+                    else{
+                        sd_array[6] = 0
+                    }
                 }
 
-                else{
-                    sd_array[index] = 0
-                }
             }
-            console.log("salio")
 
         }
+
 
         function getStandardDeviation (array) {
           const n = array.length

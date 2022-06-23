@@ -2,6 +2,32 @@
 {% block head %}
     <link rel="stylesheet"href="{{ url_for('static', filename='css/info.css') }}">
     <title>Batter Info</title>
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Points'],
+            {% for year in player_array %}
+                [{{ year.yearID }}, {{ year.points }}],
+            {% endfor %}
+
+
+        ]);
+
+        var options = {
+          title: 'Points through years',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -50,6 +76,8 @@
     </div>
 
   </div>
-  <div class="graph"></div>
+  <div class="graph">
+      <div id="curve_chart"></div>
+  </div>
 </div>
 {% endblock %}

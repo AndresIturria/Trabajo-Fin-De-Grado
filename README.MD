@@ -21,7 +21,7 @@ Para generarlos ejecutar los scripts en la carpeta data/scripts/ en orden.
 También se puede encontrar la aplicación en la dirección: http://34.148.143.188:5000/
 
 ## Docker
-1. Se proporciona un  y un .dockerignore.
+1. Se proporciona un Dockerfile y un .dockerignore.
 2. Para construir el contenedor: docker build -t tfg .
 3. Para iniciar el contenedor: docker run -p 5000:5000 -it tfg
 4. La aplicación se encontrará en 127.0.0.1:5000

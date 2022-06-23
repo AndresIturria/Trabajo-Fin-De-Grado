@@ -1,0 +1,47 @@
+.container {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "info table table"
+    "graph graph graph"
+    "graph graph graph";
+}
+
+.info {
+  grid-area: info;
+  padding: 50px;
+}
+
+.table {
+  grid-area: table;
+  padding: 10px;
+}
+
+.graph { grid-area: graph; }
+
+p{
+  text-align: center;
+  padding: 10px;
+}
+table {
+  width: 80%;
+}
+
+th {
+  height: 70px;
+  text-align: center;
+}
+tr {
+  height: 50px;
+  width: 70px;
+  text-align: center;
+}
+
+#curve_chart {
+  width: 900px;
+  height: 500px;
+  position: relative;
+  margin: 0 auto;
+}

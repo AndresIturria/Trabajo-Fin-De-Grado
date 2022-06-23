@@ -1,0 +1,55 @@
+{% extends 'base.jinja2' %}
+{% block head %}
+    <link rel="stylesheet"href="{{ url_for('static', filename='css/info.css') }}">
+    <title>Batter Info</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="info">
+      <p>Name: {{ player_array[0].nameFirst }} {{ player_array[0].nameLast }}</p>
+      <p>Throws: {{ player_array[0].throws }}</p>
+      <p>Age: {{ (player_array | last).age + 1}}</p>
+  </div>
+  <div class="table">
+    <div class="tableContainer">
+      <table>
+          <tr>
+              <th>Year</th>
+              <th>Age</th>
+              <th>Team</th>
+              <th>W</th>
+              <th>GF</th>
+              <th>SO</th>
+              <th>ER</th>
+              <th>IPouts</th>
+              <th>BB</th>
+              <th>H</th>
+              <th>HBP</th>
+              <th>IBB</th>
+              <th>Points</th>
+          </tr>
+          {% for year in player_array %}
+          <tr>
+            <td>{{ year.yearID }}</td>
+            <td>{{ year.age }}</td>
+            <td>{{ year.teamID }}</td>
+            <td>{{ year.W }}</td>
+            <td>{{ year.GF }}</td>
+            <td>{{ year.SO }}</td>
+            <td>{{ year.ER }}</td>
+            <td>{{ year.IPouts }}</td>
+            <td>{{ year.BB }}</td>
+            <td>{{ year.H }}</td>
+            <td>{{ year.HBP }}</td>
+            <td>{{ year.IBB }}</td>
+            <td>{{ year.points }}</td>
+          </tr>
+          {% endfor %}
+      </table>
+    </div>
+
+  </div>
+  <div class="graph"></div>
+</div>
+{% endblock %}

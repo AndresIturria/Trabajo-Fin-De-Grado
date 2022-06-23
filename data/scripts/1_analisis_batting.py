@@ -41,10 +41,6 @@ df_bat = df_bat[df_bat.AB != 0]
 # Estos suelen ser suplentes, o jugadores lesionados, cuyas temporadas no representan un dato significativo.
 df_bat = df_bat[df_bat.AB > 100]
 
-# Quitar outliers
-steroid_users = ["bondsba01", "sosasa01", "mcgwima01", "rodrial01", "sheffga01", "anderbr01"]
-for user in steroid_users:
-    df_bat.drop(df_bat[df_bat.playerID == user].index, inplace = True)
 
 # Una vez calculados los puntos quitamos las columnas que se usan para calcularlos, quitamos también birthyear y yearID,
 # usados para calcular la edad.

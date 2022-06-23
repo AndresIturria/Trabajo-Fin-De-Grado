@@ -3,6 +3,7 @@
 {% block head %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet"href="{{ url_for('static', filename='css/app.css') }}">
+    <title>App</title>
 {% endblock %}
 
 {% block content %}
@@ -26,7 +27,7 @@
             {% for player in catcher %}
                 <tr class="{{ player.playerID }}">
                 <td>{{ player.playerID }}</td>
-                <td><a target="_blank" href="/player/{{ player.playerID }}">{{ player.firstName }} {{ player.lastName }}</a></td>
+                <td><a target="_blank" href="/batters/{{ player.playerID }}">{{ player.firstName }} {{ player.lastName }}</a></td>
                 <td>{{ player.teamID }}</td>
                 <td>{{ player.points }}</td>
                 <td><button type="button" class="pos-c" onclick="pick('{{ player.playerID }}', this, 'pos-c')">Pick</button></td>
@@ -54,7 +55,7 @@
             {% for player in first %}
                 <tr class="{{ player.playerID }}">
                 <td>{{ player.playerID }}</td>
-                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td><a target="_blank" href="/batters/{{ player.playerID }}">{{ player.firstName }} {{ player.lastName }}</a></td>
                 <td>{{ player.teamID }}</td>
                 <td>{{ player.points }}</td>
                 <td><button type="button" class="pos-1b" onclick="pick('{{ player.playerID }}', this, 'pos-1b')">Pick</button></td>
@@ -83,7 +84,7 @@
             {% for player in second %}
                 <tr class="{{ player.playerID }}">
                 <td>{{ player.playerID }}</td>
-                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td><a target="_blank" href="/batters/{{ player.playerID }}">{{ player.firstName }} {{ player.lastName }}</a></td>
                 <td>{{ player.teamID }}</td>
                 <td>{{ player.points }}</td>
                 <td><button type="button" class="pos-2b" onclick="pick('{{ player.playerID }}', this, 'pos-2b')">Pick</button></td>
@@ -112,7 +113,7 @@
             {% for player in third %}
                 <tr class="{{ player.playerID }}">
                 <td>{{ player.playerID }}</td>
-                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td><a target="_blank" href="/batters/{{ player.playerID }}">{{ player.firstName }} {{ player.lastName }}</a></td>
                 <td>{{ player.teamID }}</td>
                 <td>{{ player.points }}</td>
                 <td><button type="button" class="pos-3b" onclick="pick('{{ player.playerID }}', this, 'pos-3b')">Pick</button></td>
@@ -141,7 +142,7 @@
             {% for player in ss %}
                 <tr class="{{ player.playerID }}">
                 <td>{{ player.playerID }}</td>
-                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td><a target="_blank" href="/batters/{{ player.playerID }}">{{ player.firstName }} {{ player.lastName }}</a></td>
                 <td>{{ player.teamID }}</td>
                 <td>{{ player.points }}</td>
                 <td><button type="button" class="pos-ss" onclick="pick('{{ player.playerID }}', this, 'pos-ss')">Pick</button></td>
@@ -170,7 +171,7 @@
             {% for player in of %}
                 <tr class="{{ player.playerID }}">
                 <td>{{ player.playerID }}</td>
-                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td><a target="_blank" href="/batters/{{ player.playerID }}">{{ player.firstName }} {{ player.lastName }}</a></td>
                 <td>{{ player.teamID }}</td>
                 <td>{{ player.points }}</td>
                 <td><button type="button" class="pos-of" onclick="pick('{{ player.playerID }}', this, 'pos-of')">Pick</button></td>
@@ -200,7 +201,7 @@
             {% for player in pitcher %}
                 <tr class="{{ player.playerID }}">
                 <td>{{ player.playerID }}</td>
-                <td>{{ player.firstName }} {{ player.lastName }}</td>
+                <td><a target="_blank" href="/pitchers/{{ player.playerID }}">{{ player.firstName }} {{ player.lastName }}</a></td>
                 <td>{{ player.teamID }}</td>
                 <td>{{ player.points }}</td>
                 <td><button type="button" class="pos-p" onclick="pick('{{ player.playerID }}', this, 'pos-p')">Pick</button></td>

@@ -46,3 +46,8 @@ def load():
 
     return (batters_array, catcher_array, first_array, second_array, third_array, ss_array, of_array, pitchers_array)
 
+
+def load_historic():
+    df_bat = pd.read_csv("./data/finished-data/bat-historic.csv")
+    df_pitch = pd.read_csv("./data/finished-data/pitch-historic.csv")
+    return df_bat, df_pitch

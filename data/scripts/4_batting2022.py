@@ -14,16 +14,6 @@ df_people = df_people[["playerID", "birthYear"]]
 df_global = df_bat.merge(df_people)
 
 
-# filename3 = "../baseballdatabank/core/Teams.csv"
-# df_teams = pd.read_csv(filename3)
-
-# df_people = df_people[["playerID", "birthYear", "bats"]]
-
-# df_teams = df_teams[["yearID", "teamID", "divID", "lgID", "park"]]
-
-# df_global = df_bat.merge(df_people)
-# df_global = df_global.merge(df_teams)
-
 # Edad
 df_global["age"] = 2022 - df_global["birthYear"]
 

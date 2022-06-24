@@ -10,16 +10,7 @@ filename2 = "../baseballdatabank/core/People.csv"
 df_people = pd.read_csv(filename2)
 df_people = df_people[["playerID", "birthYear"]]
 
-# filename3 = "../baseballdatabank/core/Teams.csv"
-# df_teams = pd.read_csv(filename3)
-
-# df_people = df_people[["playerID", "birthYear", "throws"]]
-
-# df_teams = df_teams[["yearID", "teamID", "divID", "lgID", "park"]]
-
-
 df_global = df_pitch.merge(df_people)
-# df_global = df_global.merge(df_teams)
 
 # Edad
 df_global["age"] = 2022 - df_global["birthYear"]

@@ -9,8 +9,6 @@ df_pitch = pd.read_csv(filename)
 filename2 = "../baseballdatabank/core/People.csv"
 df_people = pd.read_csv(filename2)
 
-# filename3 = "../baseballdatabank/core/Teams.csv"
-# df_teams = pd.read_csv(filename3)
 
 # Creamos dataframe con los campos necesarios para identificar a los jugadores y generar la columna points
 # Creamos los dataframes para obtener edad, equipo, liga, división y estadio.

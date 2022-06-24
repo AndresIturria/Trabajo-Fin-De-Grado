@@ -15,8 +15,6 @@ for name in df_bat["Name"]:
 
 df_bat["Name"] = playerID
 df_bat = df_bat.rename(columns={"Name":"playerID"})
-# df_bat = df_bat.rename(columns={"Tm":"teamID"})
-# df_bat = df_bat.rename(columns={"Lg":"lgID"})
 
 # Quitamos jugadores sin turnos al bate
 
@@ -25,8 +23,6 @@ df_bat = df_bat[df_bat.AB != 0]
 
 # Tomamos solo columnas que nos interesan y juntamos con el resto de los datos
 
-# df_bat = df_bat[["playerID", "yearID", "age", "teamID", "AB", "H", "2B", "3B", "HR", "R", "RBI", "SB",
-#                 "BB", "IBB", "SO", "HBP"]]
 
 df_bat = df_bat[["playerID", "yearID", "age", "AB", "H", "2B", "3B", "HR", "R", "RBI", "SB",
                  "BB", "IBB", "SO", "HBP"]]
@@ -36,18 +32,7 @@ df_bat = df_bat[["playerID", "yearID", "age", "AB", "H", "2B", "3B", "HR", "R", 
 filename2 = "../baseballdatabank/core/People.csv"
 df_people = pd.read_csv(filename2)
 
-# filename3 = "../baseballdatabank/core/Teams.csv"
-# df_teams = pd.read_csv(filename3)
-
-# df_bat = df_bat.merge(df_people)
 df_global = df_bat
-# df_people = df_people[["playerID", "bats"]]
-# df_teams = df_teams[["teamID", "divID","lgID", "yearID", "park"]]
-
-
-# df_global = df_bat.merge(df_people)
-# df_global = df_global.merge(df_teams)
-
 
 # Una vez hecho el merge podemos prescindir de yearID
 df_global = df_global.drop(["yearID"], 1)
@@ -70,7 +55,7 @@ df_global = df_global.drop(["AB", "H", "2B", "3B", "HR", "R", "RBI", "SB",
 
 filename4 = "../intermediate-steps/batting_step1.csv"
 df_old = pd.read_csv(filename4)
-# df_old = df_old.drop(["birthCountry"], 1)
+
 
 df_global = df_old.append(df_global, ignore_index=True)
 

@@ -17,26 +17,11 @@ for name in df_pitch["Name"]:
 
 df_pitch["Name"] = playerID
 df_pitch = df_pitch.rename(columns={"Name": "playerID"})
-# df_pitch = df_pitch.rename(columns={"Tm": "teamID"})
-# df_pitch = df_pitch.rename(columns={"Lg":"lgID"})
+
 # Tomamos solo columnas que nos interesan y juntamos con el resto de los datos
 
 df_pitch = df_pitch[["playerID", "age", "W", "GF", "SO", "ER", "IPouts", "BB", "H", "HBP", "IBB"]]
 
-
-
-# filename2 = "../baseballdatabank/core/People.csv"
-# df_people = pd.read_csv(filename2)
-
-# filename3 = "../baseballdatabank/core/Teams.csv"
-# df_teams = pd.read_csv(filename3)
-
-# df_people = df_people[["playerID", "throws"]]
-
-# df_teams = df_teams[["teamID", "lgID", "divID", "yearID", "park"]]
-
-# df_global = df_pitch.merge(df_people)
-# df_global = df_global.merge(df_teams)
 
 # Creamos la columna points
 

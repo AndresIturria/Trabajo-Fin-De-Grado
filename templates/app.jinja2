@@ -255,7 +255,7 @@
 
 
         function pick(playerID, el, pos) {
-
+            var startTime = performance.now()
             // sumar a contadores
             players_picked = players_picked + 1;
 
@@ -344,15 +344,19 @@
             // Once player is removed from lists calculate sd and recommended player again
             let sd_array = calculate_sd();
             update_recommended(sd_array);
+            var endTime = performance.now()
+            console.log(`picking a player took ${endTime - startTime} milliseconds`)
 
         }
 
         function remove_player(playerID, el) {
+            var startTime = performance.now()
             $('.'+playerID).remove();
             // Once player is removed from lists calculate sd and recommended again
             let sd_array = calculate_sd();
             update_recommended(sd_array);
-
+            var endTime = performance.now()
+            console.log(`Removing a player took ${endTime - startTime} milliseconds`)
         }
 
         function calculate_sd(){
@@ -400,6 +404,7 @@
         }
 
         function update_recommended(sd_array){
+            var startTime = performance.now()
             //Actualizar la posicion recomendada:
 
             while(true){
@@ -495,6 +500,9 @@
                 }
 
             }
+            var endTime = performance.now()
+
+            console.log(`Call to update recommended position took ${endTime - startTime} milliseconds`)
 
         }
 
